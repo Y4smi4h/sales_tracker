@@ -1,0 +1,10 @@
+@layouts.main()
+<h1 class="text-2xl font-bold mb-4">Edit Sale</h1>
+<form action="/dealer/sales-entries/{{ entry.id }}/update" method="POST" class="max-w-lg">
+  {{ csrfField() }}
+  <input type="text" name="customer_name" value="{{ entry.customerName }}" placeholder="Customer name" class="input input-bordered w-full mb-2" required>
+  <input type="text" name="supplier_name" value="{{ entry.supplierName }}" placeholder="Supplier" class="input input-bordered w-full mb-2">
+  <input type="text" name="town_name" value="{{ entry.town.townName }}" placeholder="Town" class="input input-bordered w-full mb-4" required>
+  <button type="submit" class="btn btn-primary w-full">Save Changes</button>
+</form>
+@end

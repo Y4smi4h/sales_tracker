@@ -1,0 +1,9 @@
+@layouts.main()
+<h1 class="text-2xl font-bold mb-4">New Device</h1>
+<form action="/admin/devices" method="POST" class="max-w-lg">
+  {{ csrfField() }}
+  <input type="text" name="marketing_name" placeholder="Marketing name (e.g. A07)" class="input input-bordered w-full mb-2" required>
+  <input type="text" name="memory" placeholder="Memory (e.g. 64GB/4GB)" class="input input-bordered w-full mb-4" required>
+  <button type="submit" class="btn btn-primary w-full">Create Device</button>
+</form>
+@end

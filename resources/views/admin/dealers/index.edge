@@ -1,0 +1,24 @@
+@layouts.main()
+<div class="flex justify-between items-center mb-4">
+  <h1 class="text-2xl font-bold">PG</h1>
+  <a href="/admin/dealers/create" class="btn btn-primary">New PG</a>
+</div>
+<table class="table w-full bg-base-100 shadow rounded">
+  <thead><tr><th>Username</th><th>Email</th><th>Town</th><th></th></tr></thead>
+  <tbody>
+    @each(dealer in dealers)
+      <tr>
+        <td class="font-bold">{{ dealer.user.username ?? dealer.user.email }}</td>
+        <td>{{ dealer.user.email }}</td>
+        <td>{{ dealer.town ? dealer.town.townName : '-' }}</td>
+        <td>
+          <form action="/admin/dealers/{{ dealer.id }}/delete" method="POST" onsubmit="return confirm('Delete this PG and all its sales? This cannot be undone.')">
+            {{ csrfField() }}
+            <button type="submit" class="btn btn-xs btn-error">Delete</button>
+          </form>
+        </td>
+      </tr>
+    @end
+  </tbody>
+</table>
+@end

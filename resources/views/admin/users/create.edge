@@ -1,0 +1,15 @@
+@layouts.main()
+<h1 class="text-2xl font-bold mb-4">New User</h1>
+<form action="/admin/users" method="POST" class="max-w-lg">
+  {{ csrfField() }}
+  <input type="text" name="username" placeholder="Username" class="input input-bordered w-full mb-2" required>
+  <input type="email" name="email" placeholder="Email" class="input input-bordered w-full mb-2" required>
+  <input type="password" name="password" placeholder="Password" class="input input-bordered w-full mb-2" required>
+  <select name="role" class="select select-bordered w-full mb-4" required>
+    <option disabled selected>Select role</option>
+    <option value="dealer">PG</option>
+    <option value="admin">Admin</option>
+  </select>
+  <button type="submit" class="btn btn-primary w-full">Create User</button>
+</form>
+@end

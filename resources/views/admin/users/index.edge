@@ -1,0 +1,31 @@
+@layouts.main()
+<div class="flex justify-between items-center mb-4">
+  <h1 class="text-2xl font-bold">Users</h1>
+  <a href="/admin/users/create" class="btn btn-primary">New User</a>
+</div>
+<div class="bg-base-100 rounded-xl shadow overflow-hidden">
+  <table class="table w-full">
+    <thead>
+      <tr class="text-xs uppercase tracking-wide text-base-content/50">
+        <th>Username</th><th>Email</th><th>Role</th><th></th>
+      </tr>
+    </thead>
+    <tbody>
+      @each(user in users)
+        <tr class="hover">
+          <td class="font-medium">{{ user.username ?? '-' }}</td>
+          <td>{{ user.email }}</td>
+          <td><span class="badge {{ user.role === 'admin' ? 'badge-neutral' : 'badge-info' }}">{{ user.role === 'admin' ? 'Admin' : 'PG' }}</span></td>
+          <td class="flex gap-2">
+            <a href="/admin/users/{{ user.id }}/edit" class="btn btn-xs btn-outline">Edit</a>
+            <form action="/admin/users/{{ user.id }}/delete" method="POST" onsubmit="return confirm('Delete this user? This cannot be undone.')">
+              {{ csrfField() }}
+              <button type="submit" class="btn btn-xs btn-error">Delete</button>
+            </form>
+          </td>
+        </tr>
+      @end
+    </tbody>
+  </table>
+</div>
+@end

@@ -1,0 +1,41 @@
+﻿@layouts.main()
+<div class="flex justify-between items-center mb-1">
+  <div>
+    <h1 class="text-2xl font-bold">My Sales</h1>
+    <p class="text-sm text-base-content/60">{{ pgUsername }}{{ pgTown ? ' — ' + pgTown : '' }}</p>
+  </div>
+  <div class="flex gap-2">
+    <a href="/dealer/sales-entries/create" class="btn btn-neutral">+ New Entry</a>
+    <a href="/dealer/sales-entries/export" class="btn text-white" style="background-color:#217346">Export to Excel</a>
+  </div>
+</div>
+
+<div class="bg-base-100 rounded-xl shadow overflow-x-auto mt-4">
+  <table class="table w-full">
+    <thead>
+      <tr class="text-xs uppercase tracking-wide text-base-content/50">
+        <th>Supplier</th><th>Customer</th><th>Model</th><th>Quantity</th><th>IMEI</th><th>Date</th><th></th>
+      </tr>
+    </thead>
+    <tbody>
+      @each(row in rows)
+        <tr class="hover">
+          <td>{{ row.supplierName }}</td>
+          <td class="font-medium">{{ row.customerName }}</td>
+          <td>{{ row.modelName }}</td>
+          <td>{{ row.quantity }}</td>
+          <td>{{ row.imei }}</td>
+          <td class="text-base-content/60">{{ row.createdAt }}</td>
+          <td class="flex gap-1">
+            <a href="/dealer/sales-entries/{{ row.entryId }}/edit" class="btn btn-ghost btn-sm">Edit</a>
+            <form action="/dealer/sales-entries/{{ row.entryId }}/delete" method="POST" onsubmit="return confirm('Delete this entry?')">
+              {{ csrfField() }}
+              <button type="submit" class="btn btn-ghost btn-sm text-error">Delete</button>
+            </form>
+          </td>
+        </tr>
+      @end
+    </tbody>
+  </table>
+</div>
+@end

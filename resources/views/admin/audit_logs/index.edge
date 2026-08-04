@@ -1,0 +1,16 @@
+@layouts.main()
+<h1 class="text-2xl font-bold mb-4">Audit Logs</h1>
+<table class="table w-full bg-base-100 shadow rounded">
+  <thead><tr><th>User</th><th>Action</th><th>Entity</th><th>Date</th></tr></thead>
+  <tbody>
+    @each(log in logs)
+      <tr>
+        <td>{{ log.user.email }}</td>
+        <td>{{ log.action }}</td>
+        <td>{{ log.entity }} #{{ log.entityId }}</td>
+        <td>{{ log.createdAt }}</td>
+      </tr>
+    @end
+  </tbody>
+</table>
+@end

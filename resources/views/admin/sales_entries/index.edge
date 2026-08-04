@@ -1,0 +1,82 @@
+﻿@layouts.main()
+
+<h1 class="text-2xl font-bold mb-2">All Sales</h1>
+
+<form method="GET" action="/admin/sales-entries" class="flex flex-wrap gap-2 mb-4">
+  <input type="text" name="search" value="{{ search }}" placeholder="Search customer, PG, model..." class="input input-bordered input-sm w-64">
+  <input type="date" name="date_from" value="{{ dateFrom }}" class="input input-bordered input-sm">
+  <input type="date" name="date_to" value="{{ dateTo }}" class="input input-bordered input-sm">
+  <button type="submit" class="btn btn-sm btn-neutral">Filter</button>
+  <a href="/admin/sales-entries" class="btn btn-sm btn-ghost">Reset</a>
+</form>
+
+<div class="bg-base-100 rounded-xl shadow overflow-x-auto mb-2">
+  <table class="table w-full">
+    <thead>
+      <tr class="text-xs uppercase tracking-wide text-base-content/50">
+        <th>PG</th><th>Supplier</th><th>Customer</th><th>Model</th><th>Quantity</th><th>Date</th><th>Town</th><th>IMEI</th><th></th>
+      </tr>
+    </thead>
+    <tbody>
+      @each(row in allRows)
+        <tr class="hover">
+          <td class="font-bold">{{ row.pgName }}</td>
+          <td>{{ row.supplierName }}</td>
+          <td>{{ row.customerName }}</td>
+          <td>{{ row.modelName }}</td>
+          <td>{{ row.quantity }}</td>
+          <td class="text-base-content/60">{{ row.createdAt }}</td>
+          <td><span class="badge badge-info badge-outline">{{ row.townName }}</span></td>
+          <td>{{ row.imei }}</td>
+          <td>
+            <form action="/admin/sales-entries/{{ row.entryId }}/delete" method="POST" onsubmit="return confirm('Delete this sale?')">
+              {{ csrfField() }}
+              <button type="submit" class="btn btn-ghost btn-xs text-error">Delete</button>
+            </form>
+          </td>
+        </tr>
+      @end
+    </tbody>
+  </table>
+</div>
+<a href="/admin/sales-entries/export" class="btn text-white mb-10" style="background-color:#217346">
+  Export All Sales to Excel
+</a>
+
+<div class="flex justify-between items-center mb-4">
+  <h1 class="text-2xl font-bold">PG</h1>
+  <a href="/admin/sales-entries/create" class="btn btn-neutral">+ New Entry</a>
+</div>
+
+@each(group in groups)
+  <div class="mb-8">
+    <div class="flex justify-between items-center mb-2">
+      <h2 class="text-lg font-semibold">{{ group.pgName }}</h2>
+      <a href="/admin/sales-entries/export/{{ group.dealerId }}" class="btn btn-sm text-white" style="background-color:#217346">
+        Export this PG
+      </a>
+    </div>
+    <div class="bg-base-100 rounded-xl shadow overflow-x-auto">
+      <table class="table w-full">
+        <thead>
+          <tr class="text-xs uppercase tracking-wide text-base-content/50">
+            <th>Supplier</th><th>Customer</th><th>Model</th><th>Quantity</th><th>Date</th><th>Town</th>
+          </tr>
+        </thead>
+        <tbody>
+          @each(row in group.rows)
+            <tr class="hover">
+              <td>{{ row.supplierName }}</td>
+              <td class="font-medium">{{ row.customerName }}</td>
+              <td>{{ row.modelName }}</td>
+              <td>{{ row.quantity }}</td>
+              <td class="text-base-content/60">{{ row.createdAt }}</td>
+              <td><span class="badge badge-info badge-outline">{{ row.townName }}</span></td>
+            </tr>
+          @end
+        </tbody>
+      </table>
+    </div>
+  </div>
+@end
+@end

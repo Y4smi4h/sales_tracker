@@ -1,0 +1,23 @@
+@layouts.main()
+<div class="flex justify-between items-center mb-4">
+  <h1 class="text-2xl font-bold">Devices</h1>
+  <a href="/admin/devices/create" class="btn btn-primary">New Device</a>
+</div>
+<table class="table w-full bg-base-100 shadow rounded">
+  <thead><tr><th>Marketing Name</th><th>Memory</th><th></th></tr></thead>
+  <tbody>
+    @each(device in devices)
+      <tr>
+        <td>{{ device.marketingName }}</td>
+        <td>{{ device.memory }}</td>
+        <td>
+          <form action="/admin/devices/{{ device.id }}/delete" method="POST" onsubmit="return confirm('Delete this device?')">
+            {{ csrfField() }}
+            <button type="submit" class="btn btn-xs btn-error">Delete</button>
+          </form>
+        </td>
+      </tr>
+    @end
+  </tbody>
+</table>
+@end

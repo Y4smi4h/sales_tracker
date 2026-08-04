@@ -1,0 +1,21 @@
+@layouts.main()
+<h1 class="text-2xl font-bold mb-4">New PG</h1>
+<form action="/admin/dealers" method="POST" class="max-w-lg">
+  {{ csrfField() }}
+  <input type="text" name="username" placeholder="Username (PG name)" class="input input-bordered w-full mb-2" required>
+  <input type="email" name="email" placeholder="Email" class="input input-bordered w-full mb-2" required>
+  <input type="password" name="password" placeholder="Password" class="input input-bordered w-full mb-2" required>
+  <input type="text" name="shop_name" placeholder="Shop name" class="input input-bordered w-full mb-2" required>
+  <input type="text" name="dealer_category" placeholder="Category" class="input input-bordered w-full mb-2">
+  <select name="town_id" class="select select-bordered w-full mb-2" required>
+    <option disabled selected>Select town</option>
+    @each(town in towns)
+      <option value="{{ town.id }}">{{ town.townName }}</option>
+    @end
+  </select>
+  <input type="text" name="location" placeholder="Location" class="input input-bordered w-full mb-2">
+  <input type="text" name="owner_name" placeholder="Owner name" class="input input-bordered w-full mb-2">
+  <input type="text" name="phone_number" placeholder="Phone number" class="input input-bordered w-full mb-4">
+  <button type="submit" class="btn btn-primary w-full">Create PG</button>
+</form>
+@end

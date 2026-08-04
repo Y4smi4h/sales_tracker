@@ -1,0 +1,10 @@
+@layouts.main()
+<h1 class="text-2xl font-bold mb-4">New Town</h1>
+<form action="/admin/towns" method="POST" class="max-w-lg">
+  {{ csrfField() }}
+  <input type="text" name="town_name" placeholder="Town name" class="input input-bordered w-full mb-2" required>
+  <input type="text" name="region" placeholder="Region" class="input input-bordered w-full mb-2" required>
+  <input type="text" name="division" placeholder="Division" class="input input-bordered w-full mb-4" required>
+  <button type="submit" class="btn btn-primary w-full">Create Town</button>
+</form>
+@end

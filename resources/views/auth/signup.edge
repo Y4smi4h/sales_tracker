@@ -1,0 +1,19 @@
+@layouts.main()
+<div class="flex justify-center mt-10">
+  <div class="card w-96 bg-base-100 shadow-xl">
+    <div class="card-body">
+      <h2 class="card-title">Create PG Account</h2>
+      <form action="/signup" method="POST">
+        {{ csrfField() }}
+        <input type="text" name="username" placeholder="Username" class="input input-bordered w-full mb-2" required>
+        <input type="email" name="email" placeholder="Email" class="input input-bordered w-full mb-2" required>
+        <input type="password" name="password" placeholder="Password" class="input input-bordered w-full mb-2" required>
+        <input type="text" name="town_name" placeholder="Town (e.g. Douala)" class="input input-bordered w-full mb-2" required>
+        <input type="text" name="phone_number" placeholder="Phone number" class="input input-bordered w-full mb-4">
+        <button type="submit" class="btn btn-primary w-full">Sign Up</button>
+      </form>
+      <a href="/login" class="link mt-2">Already have an account? Login</a>
+    </div>
+  </div>
+</div>
+@end
