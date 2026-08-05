@@ -57,4 +57,5 @@ export default class DealersController {
     if (user) await user.delete()
 
     return response.redirect('/admin/dealers')
+   }
   }
