@@ -1,4 +1,4 @@
-import router from '@adonisjs/core/services/router'
+﻿import router from '@adonisjs/core/services/router'
 import { middleware } from './kernel.js'
 
 // Auth
@@ -24,6 +24,7 @@ router
     router.get('/sales-entries/create', '#controllers/dealer/sales_entries_controller.create').as('dealer.sales_entries.create')
     router.get('/sales-entries/:id/edit', '#controllers/dealer/sales_entries_controller.edit').as('dealer.sales_entries.edit')
     router.post('/sales-entries/:id/update', '#controllers/dealer/sales_entries_controller.update').as('dealer.sales_entries.update')
+    router.get('/dashboard', '#controllers/dealer/sales_entries_controller.dashboard').as('dealer.dashboard')
     router.post('/sales-entries', '#controllers/dealer/sales_entries_controller.store').as('dealer.sales_entries.store')
     router.post('/sales-entries/:id/delete', '#controllers/dealer/sales_entries_controller.destroy').as('dealer.sales_entries.destroy')
     router.get('/sales-entries/export', '#controllers/dealer/export_controller.exportExcel').as('dealer.sales_entries.export')

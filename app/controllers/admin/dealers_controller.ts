@@ -1,87 +1,60 @@
 import type { HttpContext } from '@adonisjs/core/http'
-import SalesEntry from '#models/sales_entry'
+import Dealer from '#models/dealer'
 import Town from '#models/town'
-import Device from '#models/device'
+import User from '#models/user'
 
-export default class SalesEntriesController {
-  async index({ auth, view }: HttpContext) {
-    const dealer = await auth.user!.related('dealer').query().preload('town').firstOrFail()
-    const entries = await SalesEntry.query()
-      .where('dealer_id', dealer.id)
-      .preload('lines', (q) => q.preload('device'))
-      .orderBy('created_at', 'desc')
-
-    const rows = []
-    for (const entry of entries) {
-      for (const line of entry.lines) {
-        rows.push({
-          entryId: entry.id,
-          supplierName: entry.supplierName && entry.supplierName !== 'NaN' ? entry.supplierName : '-',
-          customerName: entry.customerName,
-          modelName: `${line.device.marketingName} (${line.device.memory})`,
-          quantity: line.quantity,
-          imei: line.imei ?? '-',
-          createdAt: entry.createdAt.toFormat('dd/MM/yyyy HH:mm'),
-        })
-      }
-    }
-
-    return view.render('dealer/sales_entries/index', {
-      rows,
-      pgUsername: auth.user!.username ?? auth.user!.email,
-      pgTown: dealer.town ? dealer.town.townName : null,
-    })
+export default class DealersController {
+  async index({ view }: HttpContext) {
+    const dealers = await Dealer.query().preload('user').preload('town').orderBy('created_at', 'desc')
+    return view.render('admin/dealers/index', { dealers })
   }
 
   async create({ view }: HttpContext) {
-    return view.render('dealer/sales_entries/create')
+    const towns = await Town.all()
+    return view.render('admin/dealers/create', { towns })
   }
 
-  async store({ auth, request, response }: HttpContext) {
-    const dealer = await auth.user!.related('dealer').query().firstOrFail()
-    const payload = request.only(['customer_name', 'town_name', 'supplier_name', 'lines'])
+  async store({ request, response }: HttpContext) {
+    const payload = request.only([
+      'username',
+      'email',
+      'password',
+      'shop_name',
+      'dealer_category',
+      'town_id',
+      'location',
+      'owner_name',
+      'phone_number',
+    ])
 
-    const town = await Town.firstOrCreate(
-      { townName: payload.town_name },
-      { region: 'N/A', division: 'N/A' }
-    )
+    const user = await User.create({
+      fullName: payload.username,
+      username: payload.username,
+      email: payload.email,
+      password: payload.password,
+      role: 'dealer',
+      isActive: true,
+    })
 
-    for (const line of payload.lines) {
-      if (!line.marketing_name || !line.quantity) continue
+    await Dealer.create({
+      userId: user.id,
+      shopName: payload.shop_name,
+      dealerCategory: payload.dealer_category || null,
+      townId: payload.town_id,
+      location: payload.location || null,
+      ownerName: payload.owner_name,
+      phoneNumber: payload.phone_number,
+    })
 
-      const device = await Device.firstOrCreate({
-        marketingName: line.marketing_name,
-        memory: line.memory,
-      })
-
-      const entry = await SalesEntry.create({
-        dealerId: dealer.id,
-        customerName: payload.customer_name,
-        townId: town.id,
-        supplierName: payload.supplier_name || null,
-        createdBy: auth.user!.id,
-      })
-
-      await entry.related('lines').create({
-        deviceId: device.id,
-        imei: line.imei || null,
-        quantity: line.quantity,
-      })
-    }
-
-    return response.redirect('/dealer/sales-entries')
+    return response.redirect('/admin/dealers')
   }
 
-  async destroy({ auth, params, response }: HttpContext) {
-    const dealer = await auth.user!.related('dealer').query().firstOrFail()
-    const entry = await SalesEntry.query()
-      .where('id', params.id)
-      .where('dealer_id', dealer.id)
-      .firstOrFail()
+  async destroy({ params, response }: HttpContext) {
+    const dealer = await Dealer.findOrFail(params.id)
+    const user = await User.find(dealer.userId)
 
-    await entry.related('lines').query().delete()
-    await entry.delete()
+    await dealer.delete()
+    if (user) await user.delete()
 
-    return response.redirect('/dealer/sales-entries')
+    return response.redirect('/admin/dealers')
   }
-}

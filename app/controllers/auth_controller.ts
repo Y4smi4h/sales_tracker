@@ -19,7 +19,7 @@ export default class AuthController {
     try {
       const user = await User.verifyCredentials(email, password)
       await auth.use('web').login(user)
-      return response.redirect(user.role === 'admin' ? '/admin/dashboard' : '/dealer/sales-entries')
+      return response.redirect(user.role === 'admin' ? '/admin/dashboard' : '/dealer/dashboard')
     } catch {
       session.flash('error', 'Invalid credentials')
       return response.redirect().back()
@@ -61,6 +61,6 @@ export default class AuthController {
 
     await auth.use('web').login(user)
     session.flash('success', 'Account created successfully')
-    return response.redirect('/dealer/sales-entries')
+    return response.redirect('/dealer/dashboard')
   }
 }

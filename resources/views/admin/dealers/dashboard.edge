@@ -1,0 +1,66 @@
+@layouts.main()
+<div class="mb-6">
+  <h1 class="text-2xl font-bold">My Dashboard</h1>
+  <p class="text-sm text-base-content/60">{{ pgUsername }}{{ pgTown ? ' — ' + pgTown : '' }}</p>
+</div>
+
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+  <div class="bg-base-100 rounded-xl shadow p-4">
+    <div class="text-xs uppercase text-base-content/50 mb-1">Total Transactions</div>
+    <div class="text-3xl font-bold">{{ totalTransactions }}</div>
+  </div>
+  <div class="bg-base-100 rounded-xl shadow p-4">
+    <div class="text-xs uppercase text-base-content/50 mb-1">Total Units Sold</div>
+    <div class="text-3xl font-bold">{{ totalUnits }}</div>
+  </div>
+  <div class="bg-base-100 rounded-xl shadow p-4">
+    <div class="text-xs uppercase text-base-content/50 mb-1">Sales This Week</div>
+    <div class="text-3xl font-bold">{{ weekUnits }}</div>
+  </div>
+  <div class="bg-base-100 rounded-xl shadow p-4">
+    <div class="text-xs uppercase text-base-content/50 mb-1">Sales This Month</div>
+    <div class="text-3xl font-bold">{{ monthUnits }}</div>
+  </div>
+</div>
+
+<div class="bg-base-100 rounded-xl shadow p-4 mb-8">
+  <div class="text-xs uppercase text-base-content/50 mb-1">Sales Today</div>
+  <div class="text-2xl font-bold">{{ todayUnits }}</div>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+  <div class="bg-base-100 rounded-xl shadow p-4">
+    <h2 class="font-semibold mb-3">My Top Selling Models</h2>
+    @if(topModels.length === 0)
+      <p class="text-base-content/50 text-sm">No sales yet</p>
+    @else
+      <ul class="space-y-2">
+        @each(item in topModels)
+          <li class="flex justify-between items-center">
+            <span class="text-sm">{{ item.model }}</span>
+            <span class="badge badge-primary">{{ item.qty }}</span>
+          </li>
+        @end
+      </ul>
+    @end
+  </div>
+
+  <div class="bg-base-100 rounded-xl shadow p-4">
+    <h2 class="font-semibold mb-3">Sales Trend (last 14 days)</h2>
+    <div class="flex items-end gap-1 h-32">
+      @each(day in chartDays)
+        <div class="flex-1 flex flex-col items-center justify-end h-full">
+          <div class="bg-primary rounded-t w-full" style="height: {{ (day.value / maxChartValue) * 100 }}%; min-height: 2px;" title="{{ day.label }}: {{ day.value }}"></div>
+        </div>
+      @end
+    </div>
+    <div class="flex gap-1 mt-1">
+      @each(day in chartDays)
+        <div class="flex-1 text-center text-[9px] text-base-content/40">{{ day.label }}</div>
+      @end
+    </div>
+  </div>
+</div>
+
+<a href="/dealer/sales-entries" class="btn btn-neutral">View All My Sales</a>
+@end

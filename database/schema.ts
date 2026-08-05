@@ -66,6 +66,17 @@ export class DeviceSchema extends BaseModel {
   declare updatedAt: DateTime | null
 }
 
+export class MakeFullNameNullableOnUserSchema extends BaseModel {
+  static $columns = ['createdAt', 'id', 'updatedAt'] as const
+  $columns = MakeFullNameNullableOnUserSchema.$columns
+  @column.dateTime({ autoCreate: true })
+  declare createdAt: DateTime | null
+  @column({ isPrimary: true })
+  declare id: number
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  declare updatedAt: DateTime | null
+}
+
 export class SalesEntrySchema extends BaseModel {
   static $columns = ['createdAt', 'createdBy', 'customerName', 'dealerId', 'id', 'supplierName', 'townId', 'updatedAt'] as const
   $columns = SalesEntrySchema.$columns

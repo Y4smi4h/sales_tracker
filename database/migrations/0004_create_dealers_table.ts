@@ -6,18 +6,13 @@ export default class extends BaseSchema {
   async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
-      table
-        .integer('user_id')
-        .unsigned()
-        .references('id')
-        .inTable('users')
-        .onDelete('CASCADE')
-      table.string('shop_name').notNullable()
+      table.integer('user_id').unsigned().references('id').inTable('users').onDelete('CASCADE')
+      table.string('shop_name').nullable()
       table.string('dealer_category').nullable()
-      table.integer('town_id').unsigned().references('id').inTable('towns')
+      table.integer('town_id').unsigned().references('id').inTable('towns').nullable()
       table.string('location').nullable()
-      table.string('owner_name').notNullable()
-      table.string('phone_number').notNullable()
+      table.string('owner_name').nullable()
+      table.string('phone_number').nullable()
       table.timestamp('created_at')
       table.timestamp('updated_at')
     })

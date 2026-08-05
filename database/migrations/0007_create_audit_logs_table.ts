@@ -9,7 +9,7 @@ export default class extends BaseSchema {
       table.integer('user_id').unsigned().references('id').inTable('users').nullable()
       table.string('action').notNullable()
       table.string('entity').notNullable()
-      table.integer('entity_id').notNullable()
+      table.integer('entity_id').nullable()
       table.json('changes').nullable()
       table.timestamp('created_at')
     })

@@ -5,7 +5,7 @@
   <tbody>
     @each(log in logs)
       <tr>
-        <td>{{ log.user.email }}</td>
+        <td>{{ log.user ? log.user.email : 'Deleted user' }}</td>
         <td>{{ log.action }}</td>
         <td>{{ log.entity }} #{{ log.entityId }}</td>
         <td>{{ log.createdAt }}</td>

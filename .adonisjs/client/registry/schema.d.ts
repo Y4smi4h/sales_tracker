@@ -127,6 +127,18 @@ export interface Registry {
       errorResponse: unknown
     }
   }
+  'dealer.dashboard': {
+    methods: ["GET","HEAD"]
+    pattern: '/dealer/dashboard'
+    types: {
+      body: {}
+      paramsTuple: []
+      params: {}
+      query: {}
+      response: unknown
+      errorResponse: unknown
+    }
+  }
   'dealer.sales_entries.store': {
     methods: ["POST"]
     pattern: '/dealer/sales-entries'

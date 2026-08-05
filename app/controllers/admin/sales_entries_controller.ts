@@ -18,6 +18,7 @@ export default class SalesEntriesController {
     const groups = []
 
     for (const dealer of dealers) {
+      if (!dealer.user) continue
       const pgName = dealer.user.username || dealer.user.email
 
       let query = SalesEntry.query()
@@ -27,7 +28,7 @@ export default class SalesEntriesController {
         .orderBy('created_at', 'desc')
 
       if (dateFrom) query = query.where('created_at', '>=', dateFrom)
-      if (dateTo) query = query.where('created_at', '<=', DateTime.fromISO(dateTo).endOf('day').toSQL()!)
+      if (dateTo) query = query.where('created_at', '<=', DateTime.fromISO(dateTo).endOf('day').toSQL())
 
       const entries = await query
 

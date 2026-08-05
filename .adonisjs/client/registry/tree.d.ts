@@ -22,6 +22,7 @@ export interface ApiDefinition {
       destroy: typeof routes['dealer.sales_entries.destroy']
       export: typeof routes['dealer.sales_entries.export']
     }
+    dashboard: typeof routes['dealer.dashboard']
   }
   admin: {
     dashboard: typeof routes['admin.dashboard']

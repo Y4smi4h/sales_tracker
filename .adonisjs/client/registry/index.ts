@@ -66,6 +66,12 @@ const routes = {
     tokens: [{"old":"/dealer/sales-entries/:id/update","type":0,"val":"dealer","end":""},{"old":"/dealer/sales-entries/:id/update","type":0,"val":"sales-entries","end":""},{"old":"/dealer/sales-entries/:id/update","type":1,"val":"id","end":""},{"old":"/dealer/sales-entries/:id/update","type":0,"val":"update","end":""}],
     types: placeholder as Registry['dealer.sales_entries.update']['types'],
   },
+  'dealer.dashboard': {
+    methods: ["GET","HEAD"],
+    pattern: '/dealer/dashboard',
+    tokens: [{"old":"/dealer/dashboard","type":0,"val":"dealer","end":""},{"old":"/dealer/dashboard","type":0,"val":"dashboard","end":""}],
+    types: placeholder as Registry['dealer.dashboard']['types'],
+  },
   'dealer.sales_entries.store': {
     methods: ["POST"],
     pattern: '/dealer/sales-entries',

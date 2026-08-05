@@ -14,6 +14,7 @@ export type ScannedRoutes = {
     'dealer.sales_entries.create': { paramsTuple?: []; params?: {} }
     'dealer.sales_entries.edit': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'dealer.sales_entries.update': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'dealer.dashboard': { paramsTuple?: []; params?: {} }
     'dealer.sales_entries.store': { paramsTuple?: []; params?: {} }
     'dealer.sales_entries.destroy': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
     'dealer.sales_entries.export': { paramsTuple?: []; params?: {} }
@@ -51,6 +52,7 @@ export type ScannedRoutes = {
     'dealer.sales_entries.index': { paramsTuple?: []; params?: {} }
     'dealer.sales_entries.create': { paramsTuple?: []; params?: {} }
     'dealer.sales_entries.edit': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'dealer.dashboard': { paramsTuple?: []; params?: {} }
     'dealer.sales_entries.export': { paramsTuple?: []; params?: {} }
     'admin.dashboard': { paramsTuple?: []; params?: {} }
     'admin.dealers.index': { paramsTuple?: []; params?: {} }
@@ -75,6 +77,7 @@ export type ScannedRoutes = {
     'dealer.sales_entries.index': { paramsTuple?: []; params?: {} }
     'dealer.sales_entries.create': { paramsTuple?: []; params?: {} }
     'dealer.sales_entries.edit': { paramsTuple: [ParamValue]; params: {'id': ParamValue} }
+    'dealer.dashboard': { paramsTuple?: []; params?: {} }
     'dealer.sales_entries.export': { paramsTuple?: []; params?: {} }
     'admin.dashboard': { paramsTuple?: []; params?: {} }
     'admin.dealers.index': { paramsTuple?: []; params?: {} }
