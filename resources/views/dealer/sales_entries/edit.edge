@@ -1,10 +1,29 @@
 @layouts.main()
-<h1 class="text-2xl font-bold mb-4">Edit Sale</h1>
-<form action="/dealer/sales-entries/{{ entry.id }}/update" method="POST" class="max-w-lg">
-  {{ csrfField() }}
-  <input type="text" name="customer_name" value="{{ entry.customerName }}" placeholder="Customer name" class="input input-bordered w-full mb-2" required>
-  <input type="text" name="supplier_name" value="{{ entry.supplierName }}" placeholder="Supplier" class="input input-bordered w-full mb-2">
-  <input type="text" name="town_name" value="{{ entry.town.townName }}" placeholder="Town" class="input input-bordered w-full mb-4" required>
-  <button type="submit" class="btn btn-primary w-full">Save Changes</button>
-</form>
+<div class="mx-auto max-w-xl">
+  <div class="card border border-base-300/60 bg-base-100 shadow-sm">
+    <div class="card-body">
+      <h1 class="card-title text-xl">Edit Sale</h1>
+      <p class="mb-2 text-sm text-base-content/60">Mettez à jour les informations de cette vente</p>
+      <form action="/dealer/sales-entries/{{ entry.id }}/update" method="POST" class="space-y-3">
+        {{ csrfField() }}
+        <div>
+          <label class="label pb-1"><span class="label-text">Customer name</span></label>
+          <input type="text" name="customer_name" value="{{ entry.customerName }}" placeholder="Customer name" class="input input-bordered w-full" required>
+        </div>
+        <div>
+          <label class="label pb-1"><span class="label-text">Supplier</span></label>
+          <input type="text" name="supplier_name" value="{{ entry.supplierName }}" placeholder="Supplier" class="input input-bordered w-full">
+        </div>
+        <div>
+          <label class="label pb-1"><span class="label-text">Town</span></label>
+          <input type="text" name="town_name" value="{{ entry.town.townName }}" placeholder="Town" class="input input-bordered w-full" required>
+        </div>
+        <div class="flex justify-end gap-2 pt-2">
+          <a href="/dealer/sales-entries" class="btn btn-ghost">Cancel</a>
+          <button type="submit" class="btn btn-primary shadow-sm">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 @end

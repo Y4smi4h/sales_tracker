@@ -1,35 +1,42 @@
 ﻿@layouts.main()
-<div class="flex justify-between items-center mb-4">
-  <h1 class="text-2xl font-bold">Users</h1>
-  <a href="/admin/users/create" class="btn btn-primary">New User</a>
+<div class="mb-6 flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
+  <div>
+    <h1 class="text-2xl font-bold tracking-tight">Users</h1>
+    <p class="mt-1 text-sm text-base-content/60">Gérez les comptes administrateurs et PG</p>
+  </div>
+  <a href="/admin/users/create" class="btn btn-primary shadow-sm">+ New User</a>
 </div>
-<div class="bg-base-100 rounded-xl shadow overflow-hidden">
-  <table class="table w-full">
+<div class="overflow-x-auto rounded-2xl border border-base-300/60 bg-base-100 shadow-sm">
+  <table class="table">
     <thead>
-      <tr class="text-xs uppercase tracking-wide text-base-content/50">
+      <tr class="text-xs font-semibold uppercase tracking-wide text-base-content/50">
         <th>Username</th><th>Email</th><th>Role</th><th></th>
       </tr>
     </thead>
     <tbody>
-      @each(user in users)
-        <tr class="hover">
-          <td class="font-medium">{{ user.username ?? '-' }}</td>
-          <td>{{ user.email }}</td>
-          <td>
-            @if(user.role === 'admin')
-              <span class="badge badge-neutral">Admin</span>
-            @else
-              <span class="badge badge-info">PG</span>
-            @end
-          </td>
-          <td class="flex gap-2">
-            <a href="/admin/users/{{ user.id }}/edit" class="btn btn-xs btn-outline">Edit</a>
-            <form action="/admin/users/{{ user.id }}/delete" method="POST" onsubmit="return confirm('Delete this user? This cannot be undone.')">
-              {{ csrfField() }}
-              <button type="submit" class="btn btn-xs btn-error">Delete</button>
-            </form>
-          </td>
-        </tr>
+      @if(users.length === 0)
+        <tr><td colspan="4" class="py-10 text-center text-base-content/50">Aucun utilisateur pour le moment</td></tr>
+      @else
+        @each(user in users)
+          <tr class="hover">
+            <td class="font-medium">{{ user.username ?? '-' }}</td>
+            <td>{{ user.email }}</td>
+            <td>
+              @if(user.role === 'admin')
+                <span class="badge badge-neutral">Admin</span>
+              @else
+                <span class="badge badge-info">PG</span>
+              @end
+            </td>
+            <td class="flex gap-2">
+              <a href="/admin/users/{{ user.id }}/edit" class="btn btn-xs btn-outline">Edit</a>
+              <form action="/admin/users/{{ user.id }}/delete" method="POST" onsubmit="return confirm('Delete this user? This cannot be undone.')">
+                {{ csrfField() }}
+                <button type="submit" class="btn btn-xs btn-error">Delete</button>
+              </form>
+            </td>
+          </tr>
+        @end
       @end
     </tbody>
   </table>

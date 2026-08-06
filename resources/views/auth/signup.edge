@@ -1,18 +1,48 @@
 @layouts.main()
-<div class="flex justify-center mt-10">
-  <div class="card w-96 bg-base-100 shadow-xl">
+<div class="relative flex min-h-[70vh] items-center justify-center overflow-hidden py-8">
+  <div class="pointer-events-none absolute -top-20 -right-20 h-64 w-64 rounded-full bg-primary/20 blur-3xl"></div>
+  <div class="pointer-events-none absolute -bottom-20 -left-20 h-64 w-64 rounded-full bg-accent/20 blur-3xl"></div>
+
+  <div class="card w-full max-w-md border border-base-300/60 bg-base-100 shadow-xl">
     <div class="card-body">
-      <h2 class="card-title">Create PG Account</h2>
-      <form action="/signup" method="POST">
+      <div class="mb-2 flex justify-center">
+        <span class="flex h-12 w-12 items-center justify-center rounded-2xl text-lg font-bold text-white" style="background:linear-gradient(135deg,#378add,#0c447c)">ST</span>
+      </div>
+      <h2 class="card-title justify-center text-2xl">Créer un compte PG</h2>
+      <p class="mb-2 text-center text-sm text-base-content/60">Rejoignez Sales Tracker en quelques secondes</p>
+      @if(flashMessages.has('error'))
+        <div class="alert alert-error text-sm">{{ flashMessages.get('error') }}</div>
+      @end
+      <form action="/signup" method="POST" class="mt-2 space-y-3">
         {{ csrfField() }}
-        <input type="text" name="username" placeholder="Username" class="input input-bordered w-full mb-2" required>
-        <input type="email" name="email" placeholder="Email" class="input input-bordered w-full mb-2" required>
-        <input type="password" name="password" placeholder="Password" class="input input-bordered w-full mb-2" required>
-        <input type="text" name="town_name" placeholder="Town (e.g. Douala)" class="input input-bordered w-full mb-2" required>
-        <input type="text" name="phone_number" placeholder="Phone number" class="input input-bordered w-full mb-4">
-        <button type="submit" class="btn btn-primary w-full">Sign Up</button>
+        <div>
+          <label class="label pb-1"><span class="label-text">Nom d'utilisateur</span></label>
+          <input type="text" name="username" placeholder="Nom d'utilisateur" class="input input-bordered w-full" required>
+        </div>
+        <div>
+          <label class="label pb-1"><span class="label-text">Email</span></label>
+          <input type="email" name="email" placeholder="vous@exemple.com" class="input input-bordered w-full" required>
+        </div>
+        <div>
+          <label class="label pb-1"><span class="label-text">Mot de passe</span></label>
+          <input type="password" name="password" placeholder="••••••••" class="input input-bordered w-full" required>
+        </div>
+        <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+          <div>
+            <label class="label pb-1"><span class="label-text">Ville</span></label>
+            <input type="text" name="town_name" placeholder="ex. Douala" class="input input-bordered w-full" required>
+          </div>
+          <div>
+            <label class="label pb-1"><span class="label-text">Téléphone</span></label>
+            <input type="text" name="phone_number" placeholder="Optionnel" class="input input-bordered w-full">
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary w-full mt-2 shadow-sm">Créer mon compte</button>
       </form>
-      <a href="/login" class="link mt-2">Already have an account? Login</a>
+      <p class="mt-3 text-center text-sm text-base-content/60">
+        Déjà un compte ?
+        <a href="/login" class="link link-primary">Se connecter</a>
+      </p>
     </div>
   </div>
 </div>

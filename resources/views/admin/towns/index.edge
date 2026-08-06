@@ -1,27 +1,40 @@
 @layouts.main()
 @if(flashMessages.has('success'))
-  <div class="alert alert-success mb-4">{{ flashMessages.get('success') }}</div>
+  <div class="alert alert-success mb-4 shadow-sm">{{ flashMessages.get('success') }}</div>
 @end
-<div class="flex justify-between items-center mb-4">
-  <h1 class="text-2xl font-bold">Towns</h1>
-  <a href="/admin/towns/create" class="btn btn-primary">New Town</a>
+<div class="mb-6 flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
+  <div>
+    <h1 class="text-2xl font-bold tracking-tight">Towns</h1>
+    <p class="mt-1 text-sm text-base-content/60">Villes couvertes par vos revendeurs</p>
+  </div>
+  <a href="/admin/towns/create" class="btn btn-primary shadow-sm">+ New Town</a>
 </div>
-<table class="table w-full bg-base-100 shadow rounded">
-  <thead><tr><th>Name</th><th>Region</th><th>Division</th><th></th></tr></thead>
-  <tbody>
-    @each(town in towns)
-      <tr>
-        <td>{{ town.townName }}</td>
-        <td>{{ town.region }}</td>
-        <td>{{ town.division }}</td>
-        <td>
-          <form action="/admin/towns/{{ town.id }}/delete" method="POST" onsubmit="return confirm('Delete this town?')">
-            {{ csrfField() }}
-            <button type="submit" class="btn btn-xs btn-error">Delete</button>
-          </form>
-        </td>
+<div class="overflow-x-auto rounded-2xl border border-base-300/60 bg-base-100 shadow-sm">
+  <table class="table">
+    <thead>
+      <tr class="text-xs font-semibold uppercase tracking-wide text-base-content/50">
+        <th>Name</th><th>Region</th><th>Division</th><th></th>
       </tr>
-    @end
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      @if(towns.length === 0)
+        <tr><td colspan="4" class="py-10 text-center text-base-content/50">Aucune ville pour le moment</td></tr>
+      @else
+        @each(town in towns)
+          <tr class="hover">
+            <td class="font-medium">{{ town.townName }}</td>
+            <td>{{ town.region }}</td>
+            <td>{{ town.division }}</td>
+            <td>
+              <form action="/admin/towns/{{ town.id }}/delete" method="POST" onsubmit="return confirm('Delete this town?')">
+                {{ csrfField() }}
+                <button type="submit" class="btn btn-xs btn-error">Delete</button>
+              </form>
+            </td>
+          </tr>
+        @end
+      @end
+    </tbody>
+  </table>
+</div>
 @end

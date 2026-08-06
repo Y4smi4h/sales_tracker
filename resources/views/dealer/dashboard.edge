@@ -1,56 +1,68 @@
 ﻿@layouts.main()
-<div class="mb-6">
-  <h1 class="text-2xl font-bold">My Dashboard</h1>
-  <p class="text-sm text-base-content/60">{{ pgUsername }}{{ pgTown ? ' — ' + pgTown : '' }}</p>
+<div class="mb-8">
+  <h1 class="text-2xl font-bold tracking-tight">My Dashboard</h1>
+  <p class="mt-1 text-sm text-base-content/60">{{ pgUsername }}{{ pgTown ? ' — ' + pgTown : '' }}</p>
 </div>
 
-<div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-  <div class="bg-base-100 rounded-xl shadow p-4">
-    <div class="text-xs uppercase text-base-content/50 mb-1">Total Transactions</div>
-    <div class="text-3xl font-bold">{{ totalTransactions }}</div>
+<div class="grid grid-cols-2 gap-4 mb-8 md:grid-cols-4">
+  <div class="card-hover rounded-2xl border border-base-300/60 bg-base-100 p-5 shadow-sm">
+    <div class="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
+      <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2"/></svg>
+    </div>
+    <div class="text-xs font-medium uppercase tracking-wide text-base-content/50">Total Transactions</div>
+    <div class="mt-1 text-3xl font-bold tracking-tight">{{ totalTransactions }}</div>
   </div>
-  <div class="bg-base-100 rounded-xl shadow p-4">
-    <div class="text-xs uppercase text-base-content/50 mb-1">Total Units Sold</div>
-    <div class="text-3xl font-bold">{{ totalUnits }}</div>
+  <div class="card-hover rounded-2xl border border-base-300/60 bg-base-100 p-5 shadow-sm">
+    <div class="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
+      <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+    </div>
+    <div class="text-xs font-medium uppercase tracking-wide text-base-content/50">Total Units Sold</div>
+    <div class="mt-1 text-3xl font-bold tracking-tight">{{ totalUnits }}</div>
   </div>
-  <div class="bg-base-100 rounded-xl shadow p-4">
-    <div class="text-xs uppercase text-base-content/50 mb-1">Sales This Week</div>
-    <div class="text-3xl font-bold">{{ weekUnits }}</div>
+  <div class="card-hover rounded-2xl border border-base-300/60 bg-base-100 p-5 shadow-sm">
+    <div class="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
+      <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+    </div>
+    <div class="text-xs font-medium uppercase tracking-wide text-base-content/50">Sales This Week</div>
+    <div class="mt-1 text-3xl font-bold tracking-tight">{{ weekUnits }}</div>
   </div>
-  <div class="bg-base-100 rounded-xl shadow p-4">
-    <div class="text-xs uppercase text-base-content/50 mb-1">Sales This Month</div>
-    <div class="text-3xl font-bold">{{ monthUnits }}</div>
+  <div class="card-hover rounded-2xl border border-base-300/60 bg-base-100 p-5 shadow-sm">
+    <div class="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
+      <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+    </div>
+    <div class="text-xs font-medium uppercase tracking-wide text-base-content/50">Sales This Month</div>
+    <div class="mt-1 text-3xl font-bold tracking-tight">{{ monthUnits }}</div>
   </div>
 </div>
 
-<div class="bg-base-100 rounded-xl shadow p-4 mb-8">
-  <div class="text-xs uppercase text-base-content/50 mb-1">Sales Today</div>
-  <div class="text-2xl font-bold">{{ todayUnits }}</div>
+<div class="mb-8 rounded-2xl border border-base-300/60 bg-base-100 p-5 shadow-sm">
+  <div class="text-xs font-medium uppercase tracking-wide text-base-content/50">Sales Today</div>
+  <div class="mt-1 text-2xl font-bold tracking-tight">{{ todayUnits }}</div>
 </div>
 
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-  <div class="bg-base-100 rounded-xl shadow p-4">
-    <h2 class="font-semibold mb-3">My Top Selling Models</h2>
+<div class="grid grid-cols-1 gap-4 mb-8 md:grid-cols-2">
+  <div class="rounded-2xl border border-base-300/60 bg-base-100 p-5 shadow-sm">
+    <h2 class="mb-3 font-semibold">My Top Selling Models</h2>
     @if(topModels.length === 0)
-      <p class="text-base-content/50 text-sm">No sales yet</p>
+      <p class="py-6 text-center text-sm text-base-content/50">Aucune vente pour le moment</p>
     @else
       <ul class="space-y-2">
         @each(item in topModels)
-          <li class="flex justify-between items-center">
+          <li class="flex items-center justify-between rounded-lg px-2 py-1.5 hover:bg-base-200/60">
             <span class="text-sm">{{ item.model }}</span>
-            <span class="badge badge-primary">{{ item.qty }}</span>
+            <span class="badge badge-primary badge-outline">{{ item.qty }}</span>
           </li>
         @end
       </ul>
     @end
   </div>
 
-  <div class="bg-base-100 rounded-xl shadow p-4">
-    <h2 class="font-semibold mb-3">Sales Trend (last 14 days)</h2>
+  <div class="rounded-2xl border border-base-300/60 bg-base-100 p-5 shadow-sm">
+    <h2 class="mb-3 font-semibold">Sales Trend (last 14 days)</h2>
     <div class="flex items-end gap-1 h-32">
       @each(day in chartDays)
         <div class="flex-1 flex flex-col items-center justify-end h-full">
-          <div class="bg-primary rounded-t w-full" style="height: {{ (day.value / maxChartValue) * 100 }}%; min-height: 2px;" title="{{ day.label }}: {{ day.value }}"></div>
+          <div class="w-full rounded-t bg-gradient-to-t from-primary to-accent" style="height: {{ (day.value / maxChartValue) * 100 }}%; min-height: 2px;" title="{{ day.label }}: {{ day.value }}"></div>
         </div>
       @end
     </div>
@@ -62,5 +74,5 @@
   </div>
 </div>
 
-<a href="/dealer/sales-entries" class="btn btn-neutral">View All My Sales</a>
+<a href="/dealer/sales-entries" class="btn btn-neutral shadow-sm">View All My Sales</a>
 @end

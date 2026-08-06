@@ -1,21 +1,50 @@
 ﻿@layouts.main()
-<h1 class="text-2xl font-bold mb-4">New Sales Entry</h1>
-<form action="/dealer/sales-entries" method="POST" class="max-w-lg">
-  {{ csrfField() }}
-  <input type="text" name="customer_name" placeholder="Customer name" class="input input-bordered w-full mb-2" required>
-  <input type="text" name="supplier_name" placeholder="Supplier" class="input input-bordered w-full mb-2">
-  <input type="text" name="town_name" placeholder="Town (e.g. Douala)" class="input input-bordered w-full mb-4" required>
-  <div id="lines-container">
-    <div class="line-block border rounded p-3 mb-2">
-      <input type="text" name="lines[0][marketing_name]" placeholder="Device model (e.g. A07)" class="input input-bordered w-full mb-2" required>
-      <input type="text" name="lines[0][memory]" placeholder="Memory (e.g. 64GB/4GB)" class="input input-bordered w-full mb-2" required>
-      <input type="text" name="lines[0][imei]" placeholder="IMEI (optional)" class="input input-bordered w-full mb-2">
-      <input type="number" name="lines[0][quantity]" placeholder="Quantity" class="input input-bordered w-full" required>
+<div class="mx-auto max-w-2xl">
+  <div class="card border border-base-300/60 bg-base-100 shadow-sm">
+    <div class="card-body">
+      <h1 class="card-title text-xl">New Sales Entry</h1>
+      <p class="mb-2 text-sm text-base-content/60">Enregistrez une nouvelle vente</p>
+      <form action="/dealer/sales-entries" method="POST" class="space-y-3">
+        {{ csrfField() }}
+        <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+          <div>
+            <label class="label pb-1"><span class="label-text">Customer name</span></label>
+            <input type="text" name="customer_name" placeholder="Customer name" class="input input-bordered w-full" required>
+          </div>
+          <div>
+            <label class="label pb-1"><span class="label-text">Supplier</span></label>
+            <input type="text" name="supplier_name" placeholder="Supplier" class="input input-bordered w-full">
+          </div>
+        </div>
+        <div>
+          <label class="label pb-1"><span class="label-text">Town</span></label>
+          <input type="text" name="town_name" placeholder="Town (e.g. Douala)" class="input input-bordered w-full" required>
+        </div>
+
+        <div class="divider my-2 text-xs uppercase tracking-wide text-base-content/50">Devices</div>
+
+        <div id="lines-container" class="space-y-3">
+          <div class="line-block rounded-xl border border-base-300/60 bg-base-200/40 p-3">
+            <div class="grid grid-cols-1 gap-2 sm:grid-cols-2">
+              <input type="text" name="lines[0][marketing_name]" placeholder="Device model (e.g. A07)" class="input input-bordered input-sm w-full" required>
+              <input type="text" name="lines[0][memory]" placeholder="Memory (e.g. 64GB/4GB)" class="input input-bordered input-sm w-full" required>
+              <input type="text" name="lines[0][imei]" placeholder="IMEI (optional)" class="input input-bordered input-sm w-full">
+              <input type="number" name="lines[0][quantity]" placeholder="Quantity" class="input input-bordered input-sm w-full" required>
+            </div>
+          </div>
+        </div>
+
+        <button type="button" id="add-line-btn" class="btn btn-outline btn-sm w-full">+ Add another device</button>
+
+        <div class="flex justify-end gap-2 pt-2">
+          <a href="/dealer/sales-entries" class="btn btn-ghost">Cancel</a>
+          <button type="submit" class="btn btn-primary shadow-sm">Submit</button>
+        </div>
+      </form>
     </div>
   </div>
-  <button type="button" id="add-line-btn" class="btn btn-outline btn-sm w-full mb-4">+ Add another device</button>
-  <button type="submit" class="btn btn-primary w-full">Submit</button>
-</form>
+</div>
+
 <script>
   (function () {
     var container = document.getElementById('lines-container')
@@ -23,13 +52,15 @@
     var lineIndex = 1
     addBtn.addEventListener('click', function () {
       var block = document.createElement('div')
-      block.className = 'line-block border rounded p-3 mb-2'
+      block.className = 'line-block rounded-xl border border-base-300/60 bg-base-200/40 p-3'
       block.innerHTML =
-        '<input type="text" name="lines[' + lineIndex + '][marketing_name]" placeholder="Device model" class="input input-bordered w-full mb-2" required>' +
-        '<input type="text" name="lines[' + lineIndex + '][memory]" placeholder="Memory" class="input input-bordered w-full mb-2" required>' +
-        '<input type="text" name="lines[' + lineIndex + '][imei]" placeholder="IMEI (optional)" class="input input-bordered w-full mb-2">' +
-        '<input type="number" name="lines[' + lineIndex + '][quantity]" placeholder="Quantity" class="input input-bordered w-full mb-2" required>' +
-        '<button type="button" class="btn btn-error btn-xs remove-line-btn">Remove</button>'
+        '<div class="grid grid-cols-1 gap-2 sm:grid-cols-2">' +
+        '<input type="text" name="lines[' + lineIndex + '][marketing_name]" placeholder="Device model" class="input input-bordered input-sm w-full" required>' +
+        '<input type="text" name="lines[' + lineIndex + '][memory]" placeholder="Memory" class="input input-bordered input-sm w-full" required>' +
+        '<input type="text" name="lines[' + lineIndex + '][imei]" placeholder="IMEI (optional)" class="input input-bordered input-sm w-full">' +
+        '<input type="number" name="lines[' + lineIndex + '][quantity]" placeholder="Quantity" class="input input-bordered input-sm w-full" required>' +
+        '</div>' +
+        '<button type="button" class="btn btn-error btn-xs remove-line-btn mt-2">Remove</button>'
       container.appendChild(block)
       lineIndex++
       block.querySelector('.remove-line-btn').addEventListener('click', function () {

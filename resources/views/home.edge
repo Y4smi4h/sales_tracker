@@ -1,22 +1,53 @@
 @layouts.main()
-<div class="hero min-h-[70vh]">
-  <div class="hero-content text-center">
-    <div class="max-w-md">
-      <h1 class="text-4xl font-bold">Sales Tracker</h1>
-      <p class="py-6 opacity-80">
-        Suivez et gérez vos ventes, revendeurs et appareils en un seul endroit.
-      </p>
-      @if(auth.user)
-        <a href="{{ auth.user.role === 'admin' ? '/admin/dashboard' : '/dealer/dashboard' }}" class="btn btn-primary">
-          Aller au tableau de bord
-        </a>
-      @else
-        <div class="flex justify-center gap-3">
-          <a href="/login" class="btn btn-primary">Connexion</a>
-          <a href="/signup" class="btn btn-outline">Créer un compte</a>
-        </div>
-      @end
+<div class="relative overflow-hidden rounded-3xl">
+  <div class="pointer-events-none absolute -top-24 -right-24 h-72 w-72 rounded-full bg-primary/20 blur-3xl"></div>
+  <div class="pointer-events-none absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-accent/20 blur-3xl"></div>
+
+  <div class="hero min-h-[60vh]">
+    <div class="hero-content text-center">
+      <div class="max-w-xl">
+        <span class="badge badge-primary badge-outline mb-4">Gestion des ventes</span>
+        <h1 class="text-4xl font-bold tracking-tight sm:text-5xl">Sales Tracker</h1>
+        <p class="py-6 text-base-content/70">
+          Suivez et gérez vos ventes, revendeurs et appareils en un seul endroit,
+          avec des tableaux de bord clairs et des exports en un clic.
+        </p>
+        @if(auth.user)
+          <a href="{{ auth.user.role === 'admin' ? '/admin/dashboard' : '/dealer/dashboard' }}" class="btn btn-primary shadow-sm">
+            Aller au tableau de bord
+          </a>
+        @else
+          <div class="flex justify-center gap-3">
+            <a href="/login" class="btn btn-primary shadow-sm">Connexion</a>
+            <a href="/signup" class="btn btn-outline">Créer un compte</a>
+          </div>
+        @end
+      </div>
     </div>
+  </div>
+</div>
+
+<div class="mb-10 grid grid-cols-1 gap-4 sm:grid-cols-3">
+  <div class="card-hover rounded-2xl border border-base-300/60 bg-base-100 p-6 shadow-sm">
+    <div class="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
+      <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14"/></svg>
+    </div>
+    <h3 class="mb-1 font-semibold">Suivi des ventes</h3>
+    <p class="text-sm text-base-content/60">Tableaux de bord en temps réel pour vos transactions et unités vendues.</p>
+  </div>
+  <div class="card-hover rounded-2xl border border-base-300/60 bg-base-100 p-6 shadow-sm">
+    <div class="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
+      <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a4 4 0 00-3-3.87M9 20H4v-2a4 4 0 013-3.87m6-5.13a4 4 0 11-8 0 4 4 0 018 0zm6 3a4 4 0 10-8 0"/></svg>
+    </div>
+    <h3 class="mb-1 font-semibold">Gestion des revendeurs</h3>
+    <p class="text-sm text-base-content/60">Gérez vos points de vente, villes et appareils depuis un espace unique.</p>
+  </div>
+  <div class="card-hover rounded-2xl border border-base-300/60 bg-base-100 p-6 shadow-sm">
+    <div class="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
+      <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2-8H8a2 2 0 00-2 2v14a2 2 0 002 2h8a2 2 0 002-2V8l-6-6z"/></svg>
+    </div>
+    <h3 class="mb-1 font-semibold">Export Excel</h3>
+    <p class="text-sm text-base-content/60">Exportez vos ventes en un clic, par revendeur ou pour toute l'équipe.</p>
   </div>
 </div>
 @end

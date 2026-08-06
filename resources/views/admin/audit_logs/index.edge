@@ -1,16 +1,29 @@
 @layouts.main()
-<h1 class="text-2xl font-bold mb-4">Audit Logs</h1>
-<table class="table w-full bg-base-100 shadow rounded">
-  <thead><tr><th>User</th><th>Action</th><th>Entity</th><th>Date</th></tr></thead>
-  <tbody>
-    @each(log in logs)
-      <tr>
-        <td>{{ log.user ? log.user.email : 'Deleted user' }}</td>
-        <td>{{ log.action }}</td>
-        <td>{{ log.entity }} #{{ log.entityId }}</td>
-        <td>{{ log.createdAt }}</td>
+<div class="mb-6">
+  <h1 class="text-2xl font-bold tracking-tight">Audit Logs</h1>
+  <p class="mt-1 text-sm text-base-content/60">Historique des actions effectuées sur la plateforme</p>
+</div>
+<div class="overflow-x-auto rounded-2xl border border-base-300/60 bg-base-100 shadow-sm">
+  <table class="table">
+    <thead>
+      <tr class="text-xs font-semibold uppercase tracking-wide text-base-content/50">
+        <th>User</th><th>Action</th><th>Entity</th><th>Date</th>
       </tr>
-    @end
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      @if(logs.length === 0)
+        <tr><td colspan="4" class="py-10 text-center text-base-content/50">Aucun log pour le moment</td></tr>
+      @else
+        @each(log in logs)
+          <tr class="hover">
+            <td>{{ log.user ? log.user.email : 'Deleted user' }}</td>
+            <td><span class="badge badge-ghost">{{ log.action }}</span></td>
+            <td>{{ log.entity }} #{{ log.entityId }}</td>
+            <td class="text-base-content/60">{{ log.createdAt }}</td>
+          </tr>
+        @end
+      @end
+    </tbody>
+  </table>
+</div>
 @end

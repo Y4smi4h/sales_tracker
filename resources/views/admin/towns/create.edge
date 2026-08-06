@@ -1,10 +1,31 @@
 @layouts.main()
-<h1 class="text-2xl font-bold mb-4">New Town</h1>
-<form action="/admin/towns" method="POST" class="max-w-lg">
-  {{ csrfField() }}
-  <input type="text" name="town_name" placeholder="Town name" class="input input-bordered w-full mb-2" required>
-  <input type="text" name="region" placeholder="Region" class="input input-bordered w-full mb-2" required>
-  <input type="text" name="division" placeholder="Division" class="input input-bordered w-full mb-4" required>
-  <button type="submit" class="btn btn-primary w-full">Create Town</button>
-</form>
+<div class="mx-auto max-w-xl">
+  <div class="card border border-base-300/60 bg-base-100 shadow-sm">
+    <div class="card-body">
+      <h1 class="card-title text-xl">New Town</h1>
+      <p class="mb-2 text-sm text-base-content/60">Ajoutez une nouvelle ville à votre couverture</p>
+      <form action="/admin/towns" method="POST" class="space-y-3">
+        {{ csrfField() }}
+        <div>
+          <label class="label pb-1"><span class="label-text">Town name</span></label>
+          <input type="text" name="town_name" placeholder="ex. Douala" class="input input-bordered w-full" required>
+        </div>
+        <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+          <div>
+            <label class="label pb-1"><span class="label-text">Region</span></label>
+            <input type="text" name="region" placeholder="ex. Littoral" class="input input-bordered w-full" required>
+          </div>
+          <div>
+            <label class="label pb-1"><span class="label-text">Division</span></label>
+            <input type="text" name="division" placeholder="ex. Wouri" class="input input-bordered w-full" required>
+          </div>
+        </div>
+        <div class="flex justify-end gap-2 pt-2">
+          <a href="/admin/towns" class="btn btn-ghost">Cancel</a>
+          <button type="submit" class="btn btn-primary shadow-sm">Create Town</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 @end

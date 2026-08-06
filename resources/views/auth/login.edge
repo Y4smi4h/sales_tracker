@@ -1,19 +1,35 @@
 @layouts.main()
-<div class="flex justify-center mt-20">
-  <div class="card w-96 bg-base-100 shadow-xl">
+<div class="relative flex min-h-[70vh] items-center justify-center overflow-hidden">
+  <div class="pointer-events-none absolute -top-20 -right-20 h-64 w-64 rounded-full bg-primary/20 blur-3xl"></div>
+  <div class="pointer-events-none absolute -bottom-20 -left-20 h-64 w-64 rounded-full bg-accent/20 blur-3xl"></div>
+
+  <div class="card w-full max-w-sm border border-base-300/60 bg-base-100 shadow-xl">
     <div class="card-body">
-      <h2 class="card-title">Login</h2>
+      <div class="mb-2 flex justify-center">
+        <span class="flex h-12 w-12 items-center justify-center rounded-2xl text-lg font-bold text-white" style="background:linear-gradient(135deg,#378add,#0c447c)">ST</span>
+      </div>
+      <h2 class="card-title justify-center text-2xl">Bon retour</h2>
+      <p class="mb-2 text-center text-sm text-base-content/60">Connectez-vous à votre espace Sales Tracker</p>
       @if(flashMessages.has('error'))
-        <div class="alert alert-error">{{ flashMessages.get('error') }}</div>
+        <div class="alert alert-error text-sm">{{ flashMessages.get('error') }}</div>
       @end
-      <form action="/login" method="POST">
+      <form action="/login" method="POST" class="mt-2 space-y-3">
         {{ csrfField() }}
-        <input type="email" name="email" placeholder="Email" class="input input-bordered w-full mb-2" required>
-        <input type="password" name="password" placeholder="Password" class="input input-bordered w-full mb-4" required>
-        <button type="submit" class="btn btn-primary w-full">Login</button>
+        <div>
+          <label class="label pb-1"><span class="label-text">Email</span></label>
+          <input type="email" name="email" placeholder="vous@exemple.com" class="input input-bordered w-full" required>
+        </div>
+        <div>
+          <label class="label pb-1"><span class="label-text">Mot de passe</span></label>
+          <input type="password" name="password" placeholder="••••••••" class="input input-bordered w-full" required>
+        </div>
+        <button type="submit" class="btn btn-primary w-full mt-2 shadow-sm">Se connecter</button>
       </form>
+      <p class="mt-3 text-center text-sm text-base-content/60">
+        Pas de compte ?
+        <a href="/signup" class="link link-primary">Créer un compte</a>
+      </p>
     </div>
   </div>
 </div>
-<a href="/signup" class="link mt-2">No account? Sign up</a>
 @end

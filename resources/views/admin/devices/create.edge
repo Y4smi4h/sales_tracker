@@ -1,9 +1,25 @@
 @layouts.main()
-<h1 class="text-2xl font-bold mb-4">New Device</h1>
-<form action="/admin/devices" method="POST" class="max-w-lg">
-  {{ csrfField() }}
-  <input type="text" name="marketing_name" placeholder="Marketing name (e.g. A07)" class="input input-bordered w-full mb-2" required>
-  <input type="text" name="memory" placeholder="Memory (e.g. 64GB/4GB)" class="input input-bordered w-full mb-4" required>
-  <button type="submit" class="btn btn-primary w-full">Create Device</button>
-</form>
+<div class="mx-auto max-w-xl">
+  <div class="card border border-base-300/60 bg-base-100 shadow-sm">
+    <div class="card-body">
+      <h1 class="card-title text-xl">New Device</h1>
+      <p class="mb-2 text-sm text-base-content/60">Ajoutez un modèle d'appareil au catalogue</p>
+      <form action="/admin/devices" method="POST" class="space-y-3">
+        {{ csrfField() }}
+        <div>
+          <label class="label pb-1"><span class="label-text">Marketing name</span></label>
+          <input type="text" name="marketing_name" placeholder="ex. A07" class="input input-bordered w-full" required>
+        </div>
+        <div>
+          <label class="label pb-1"><span class="label-text">Memory</span></label>
+          <input type="text" name="memory" placeholder="ex. 64GB/4GB" class="input input-bordered w-full" required>
+        </div>
+        <div class="flex justify-end gap-2 pt-2">
+          <a href="/admin/devices" class="btn btn-ghost">Cancel</a>
+          <button type="submit" class="btn btn-primary shadow-sm">Create Device</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 @end

@@ -1,15 +1,37 @@
 ﻿@layouts.main()
-<h1 class="text-2xl font-bold mb-4">New User</h1>
-<form action="/admin/users" method="POST" class="max-w-lg">
-  {{ csrfField() }}
-  <input type="text" name="username" placeholder="Username" class="input input-bordered w-full mb-2" required>
-  <input type="email" name="email" placeholder="Email" class="input input-bordered w-full mb-2" required>
-  <input type="password" name="password" placeholder="Password" class="input input-bordered w-full mb-2" required>
-  <select name="role" class="select select-bordered w-full mb-4" required>
-    <option disabled selected>Select role</option>
-    <option value="dealer">PG</option>
-    <option value="admin">Admin</option>
-  </select>
-  <button type="submit" class="btn btn-primary w-full">Create User</button>
-</form>
+<div class="mx-auto max-w-xl">
+  <div class="card border border-base-300/60 bg-base-100 shadow-sm">
+    <div class="card-body">
+      <h1 class="card-title text-xl">New User</h1>
+      <p class="mb-2 text-sm text-base-content/60">Créez un compte administrateur ou PG</p>
+      <form action="/admin/users" method="POST" class="space-y-3">
+        {{ csrfField() }}
+        <div>
+          <label class="label pb-1"><span class="label-text">Username</span></label>
+          <input type="text" name="username" placeholder="Username" class="input input-bordered w-full" required>
+        </div>
+        <div>
+          <label class="label pb-1"><span class="label-text">Email</span></label>
+          <input type="email" name="email" placeholder="vous@exemple.com" class="input input-bordered w-full" required>
+        </div>
+        <div>
+          <label class="label pb-1"><span class="label-text">Password</span></label>
+          <input type="password" name="password" placeholder="••••••••" class="input input-bordered w-full" required>
+        </div>
+        <div>
+          <label class="label pb-1"><span class="label-text">Role</span></label>
+          <select name="role" class="select select-bordered w-full" required>
+            <option disabled selected>Select role</option>
+            <option value="dealer">PG</option>
+            <option value="admin">Admin</option>
+          </select>
+        </div>
+        <div class="flex justify-end gap-2 pt-2">
+          <a href="/admin/users" class="btn btn-ghost">Cancel</a>
+          <button type="submit" class="btn btn-primary shadow-sm">Create User</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 @end

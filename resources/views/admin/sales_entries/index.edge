@@ -1,8 +1,11 @@
 ﻿@layouts.main()
 
-<h1 class="text-2xl font-bold mb-2">All Sales</h1>
+<div class="mb-4">
+  <h1 class="text-2xl font-bold tracking-tight">All Sales</h1>
+  <p class="mt-1 text-sm text-base-content/60">Toutes les transactions enregistrées</p>
+</div>
 
-<form method="GET" action="/admin/sales-entries" class="flex flex-wrap gap-2 mb-4">
+<form method="GET" action="/admin/sales-entries" class="mb-4 flex flex-wrap items-center gap-2 rounded-2xl border border-base-300/60 bg-base-100 p-3 shadow-sm">
   <input type="text" name="search" value="{{ search }}" placeholder="Search customer, PG, model..." class="input input-bordered input-sm w-64">
   <input type="date" name="date_from" value="{{ dateFrom }}" class="input input-bordered input-sm">
   <input type="date" name="date_to" value="{{ dateTo }}" class="input input-bordered input-sm">
@@ -10,56 +13,67 @@
   <a href="/admin/sales-entries" class="btn btn-sm btn-ghost">Reset</a>
 </form>
 
-<div class="bg-base-100 rounded-xl shadow overflow-x-auto mb-2">
-  <table class="table w-full">
+<div class="mb-4 overflow-x-auto rounded-2xl border border-base-300/60 bg-base-100 shadow-sm">
+  <table class="table">
     <thead>
-      <tr class="text-xs uppercase tracking-wide text-base-content/50">
+      <tr class="text-xs font-semibold uppercase tracking-wide text-base-content/50">
         <th>PG</th><th>Supplier</th><th>Customer</th><th>Model</th><th>Quantity</th><th>Date</th><th>Town</th><th>IMEI</th><th></th>
       </tr>
     </thead>
     <tbody>
-      @each(row in allRows)
-        <tr class="hover">
-          <td class="font-bold">{{ row.pgName }}</td>
-          <td>{{ row.supplierName }}</td>
-          <td>{{ row.customerName }}</td>
-          <td>{{ row.modelName }}</td>
-          <td>{{ row.quantity }}</td>
-          <td class="text-base-content/60">{{ row.createdAt }}</td>
-          <td><span class="badge badge-info badge-outline">{{ row.townName }}</span></td>
-          <td>{{ row.imei }}</td>
-          <td>
-            <form action="/admin/sales-entries/{{ row.entryId }}/delete" method="POST" onsubmit="return confirm('Delete this sale?')">
-              {{ csrfField() }}
-              <button type="submit" class="btn btn-ghost btn-xs text-error">Delete</button>
-            </form>
-          </td>
-        </tr>
+      @if(allRows.length === 0)
+        <tr><td colspan="9" class="py-10 text-center text-base-content/50">Aucune vente trouvée</td></tr>
+      @else
+        @each(row in allRows)
+          <tr class="hover">
+            <td class="font-bold">{{ row.pgName }}</td>
+            <td>{{ row.supplierName }}</td>
+            <td>{{ row.customerName }}</td>
+            <td>{{ row.modelName }}</td>
+            <td>{{ row.quantity }}</td>
+            <td class="text-base-content/60">{{ row.createdAt }}</td>
+            <td><span class="badge badge-info badge-outline">{{ row.townName }}</span></td>
+            <td class="text-base-content/60">{{ row.imei }}</td>
+            <td>
+              <form action="/admin/sales-entries/{{ row.entryId }}/delete" method="POST" onsubmit="return confirm('Delete this sale?')">
+                {{ csrfField() }}
+                <button type="submit" class="btn btn-ghost btn-xs text-error">Delete</button>
+              </form>
+            </td>
+          </tr>
+        @end
       @end
     </tbody>
   </table>
 </div>
-<a href="/admin/sales-entries/export" class="btn text-white mb-10" style="background-color:#217346">
+<a href="/admin/sales-entries/export" class="btn text-white mb-10 shadow-sm" style="background-color:#217346">
+  <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2-8H8a2 2 0 00-2 2v14a2 2 0 002 2h8a2 2 0 002-2V8l-6-6z"/></svg>
   Export All Sales to Excel
 </a>
 
-<div class="flex justify-between items-center mb-4">
-  <h1 class="text-2xl font-bold">PG</h1>
-  <a href="/admin/sales-entries/create" class="btn btn-neutral">+ New Entry</a>
+<div class="mb-4 flex items-center justify-between">
+  <h1 class="text-2xl font-bold tracking-tight">PG</h1>
+  <a href="/admin/sales-entries/create" class="btn btn-neutral shadow-sm">+ New Entry</a>
 </div>
+
+@if(groups.length === 0)
+  <div class="rounded-2xl border border-base-300/60 bg-base-100 p-10 text-center text-base-content/50 shadow-sm">
+    Aucune donnée par PG pour le moment
+  </div>
+@end
 
 @each(group in groups)
   <div class="mb-8">
-    <div class="flex justify-between items-center mb-2">
+    <div class="mb-2 flex items-center justify-between">
       <h2 class="text-lg font-semibold">{{ group.pgName }}</h2>
-      <a href="/admin/sales-entries/export/{{ group.dealerId }}" class="btn btn-sm text-white" style="background-color:#217346">
+      <a href="/admin/sales-entries/export/{{ group.dealerId }}" class="btn btn-sm text-white shadow-sm" style="background-color:#217346">
         Export this PG
       </a>
     </div>
-    <div class="bg-base-100 rounded-xl shadow overflow-x-auto">
-      <table class="table w-full">
+    <div class="overflow-x-auto rounded-2xl border border-base-300/60 bg-base-100 shadow-sm">
+      <table class="table">
         <thead>
-          <tr class="text-xs uppercase tracking-wide text-base-content/50">
+          <tr class="text-xs font-semibold uppercase tracking-wide text-base-content/50">
             <th>Supplier</th><th>Customer</th><th>Model</th><th>Quantity</th><th>Date</th><th>Town</th>
           </tr>
         </thead>

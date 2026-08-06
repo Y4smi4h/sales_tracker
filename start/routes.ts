@@ -17,8 +17,8 @@ router.get('/signup', '#controllers/auth_controller.showSignup')
 router.post('/signup', '#controllers/auth_controller.signup')
 
 // Shared lookups
-router.get('/towns', '#controllers/shared/lookups_controller.towns').middleware('auth')
-router.get('/devices', '#controllers/shared/lookups_controller.devices').middleware('auth')
+router.get('/towns', '#controllers/shared/lookups_controller.towns').use(middleware.auth())
+router.get('/devices', '#controllers/shared/lookups_controller.devices').use(middleware.auth())
 
 // Dealer area
 router
