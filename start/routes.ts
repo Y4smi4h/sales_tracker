@@ -4,6 +4,9 @@ import { middleware } from './kernel.js'
 // Home
 router.get('/', async ({ view }) => view.render('home'))
 
+// Temporary admin bootstrap (token-protected, see setup_controller.ts)
+router.get('/internal/setup-admin', '#controllers/setup_controller.createAdmin')
+
 // Auth
 router.get('/test-edge', async ({ view }) => view.render('test'))
 
