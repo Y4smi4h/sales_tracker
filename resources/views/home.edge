@@ -1,0 +1,22 @@
+@layouts.main()
+<div class="hero min-h-[70vh]">
+  <div class="hero-content text-center">
+    <div class="max-w-md">
+      <h1 class="text-4xl font-bold">Sales Tracker</h1>
+      <p class="py-6 opacity-80">
+        Suivez et gérez vos ventes, revendeurs et appareils en un seul endroit.
+      </p>
+      @if(auth.user)
+        <a href="{{ auth.user.role === 'admin' ? '/admin/dashboard' : '/dealer/dashboard' }}" class="btn btn-primary">
+          Aller au tableau de bord
+        </a>
+      @else
+        <div class="flex justify-center gap-3">
+          <a href="/login" class="btn btn-primary">Connexion</a>
+          <a href="/signup" class="btn btn-outline">Créer un compte</a>
+        </div>
+      @end
+    </div>
+  </div>
+</div>
+@end

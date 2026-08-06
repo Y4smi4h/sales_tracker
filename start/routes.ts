@@ -1,6 +1,9 @@
 ﻿import router from '@adonisjs/core/services/router'
 import { middleware } from './kernel.js'
 
+// Home
+router.get('/', async ({ view }) => view.render('home'))
+
 // Auth
 router.get('/test-edge', async ({ view }) => view.render('test'))
 
