@@ -25,7 +25,6 @@ export default class SetupController {
       user.password = password
       user.role = 'admin'
       user.username = username
-      user.isActive = true
       await user.save()
       return response.ok({ status: 'updated', email })
     }
@@ -36,7 +35,6 @@ export default class SetupController {
       username,
       fullName: username,
       role: 'admin',
-      isActive: true,
     })
 
     return response.ok({ status: 'created', email })
